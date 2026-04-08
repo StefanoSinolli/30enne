@@ -49,6 +49,11 @@ const destinations = {
 let touchStartX = 0;
 let touchEndX = 0;
 
+function setViewportHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
 function resetScores() {
     Object.keys(scores).forEach(key => {
         scores[key] = 0;
@@ -194,7 +199,15 @@ function handleSwipe() {
 }
 
 // Initialize
+setViewportHeight();
 updateProgress();
+
+window.addEventListener('resize', setViewportHeight);
+window.addEventListener('orientationchange', setViewportHeight);
+
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setViewportHeight);
+}
 
 // Add swipe listeners
 document.addEventListener('touchstart', handleTouchStart, false);

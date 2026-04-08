@@ -8,10 +8,17 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
+    padding:
+        calc(40px + env(safe-area-inset-top))
+        calc(20px + env(safe-area-inset-right))
+        calc(40px + env(safe-area-inset-bottom))
+        calc(20px + env(safe-area-inset-left));
+    overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -21,6 +28,7 @@ body {
 .container {
     width: 100%;
     max-width: 600px;
+    margin: 0 auto;
 }
 
 /* Progress bar */
@@ -239,10 +247,22 @@ p {
 /* Responsive */
 @media (max-width: 600px) {
     body {
-        padding: 20px 15px;
+        padding:
+            calc(12px + env(safe-area-inset-top))
+            calc(12px + env(safe-area-inset-right))
+            calc(12px + env(safe-area-inset-bottom))
+            calc(12px + env(safe-area-inset-left));
+    }
+
+    .container {
+        min-height: calc((var(--vh, 1vh) * 100) - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .screen {
+        width: 100%;
         padding: 40px 25px;
     }
 
