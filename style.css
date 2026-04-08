@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+:root {
+    --mobile-center-offset: 0px;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -254,11 +258,16 @@ p {
             calc(12px + env(safe-area-inset-left));
     }
 
+    :root {
+        --mobile-center-offset: -12px;
+    }
+
     .container {
         min-height: calc((var(--vh, 1vh) * 100) - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px);
         display: flex;
         align-items: center;
         justify-content: center;
+        transform: translateY(var(--mobile-center-offset));
     }
 
     .screen {
@@ -287,5 +296,11 @@ p {
         padding: 14px 35px;
         font-size: 1em;
         width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    :root {
+        --mobile-center-offset: -18px;
     }
 }
