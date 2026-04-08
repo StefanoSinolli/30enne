@@ -153,13 +153,13 @@ p {
 }
 
 .option:active {
- 
+    transform: scale(0.98);
+    background: #e2e8f0;
+}
 
 .option.selected i {
     color: white !important;
     transform: scale(1.15);
-}   transform: scale(0.98);
-    background: #e2e8f0;
 }
 
 .option.selected {
@@ -209,6 +209,16 @@ p {
 /* Final screen styling */
 .final-message {
     text-align: center;
+}
+
+.result-description {
+    font-size: 1.05em;
+    color: #4a5568;
+    margin: 10px 0 30px;
+}
+
+.final-message .btn {
+    margin-top: 10px;
 }
 
 .heart-animation {

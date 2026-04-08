@@ -9,20 +9,51 @@ const scores = {
     eze: 0,
     cannes: 0
 };
+const answers = {};
 
 // Destinations info
 const destinations = {
-    isola: { name: "Île Sainte-Marguerite", icon: "🏝️" },
-    menton: { name: "Menton", icon: "🌸" },
-    nice: { name: "Nice", icon: "🌆" },
-    antibes: { name: "Antibes", icon: "🌊" },
-    eze: { name: "Èze", icon: "🌅" },
-    cannes: { name: "Cannes", icon: "✨" }
+    isola: {
+        name: "Île Sainte-Marguerite",
+        icon: "🏝️",
+        description: "Una giornata tra mare cristallino, natura e relax totale, solo noi due."
+    },
+    menton: {
+        name: "Menton",
+        icon: "🌸",
+        description: "Colori, tranquillità e una passeggiata dolce e romantica mano nella mano."
+    },
+    nice: {
+        name: "Nice",
+        icon: "🌆",
+        description: "Vicoli vivi, scorci bellissimi e atmosfera locale da scoprire insieme."
+    },
+    antibes: {
+        name: "Antibes",
+        icon: "🌊",
+        description: "Porto, mare e un mix perfetto di eleganza e leggerezza."
+    },
+    eze: {
+        name: "Èze",
+        icon: "🌅",
+        description: "Un borgo romantico con una vista da togliere il fiato e un tramonto speciale."
+    },
+    cannes: {
+        name: "Cannes",
+        icon: "✨",
+        description: "Un tocco glamour, aperitivo vista mare e una giornata super chic."
+    }
 };
 
 // Swipe detection for mobile
 let touchStartX = 0;
 let touchEndX = 0;
+
+function resetScores() {
+    Object.keys(scores).forEach(key => {
+        scores[key] = 0;
+    });
+}
 
 // Update progress bar
 function updateProgress() {
@@ -32,19 +63,26 @@ function updateProgress() {
 
 // Navigate to next screen
 function nextScreen() {
+    if (currentScreen >= totalScreens - 1) {
+        return;
+    }
+
     const current = document.getElementById(`screen${currentScreen}`);
+    if (!current) {
+        return;
+    }
+
     current.classList.add('exiting');
-    
+
     setTimeout(() => {
         current.classList.remove('active', 'exiting');
         currentScreen++;
-        
-        if (currentScreen < totalScreens) {
-            const next = document.getElementById(`screen${currentScreen}`);
+
+        const next = document.getElementById(`screen${currentScreen}`);
+        if (next) {
             next.classList.add('active');
             updateProgress();
-            
-            // If we reached the final screen, calculate and show result
+
             if (currentScreen === totalScreens - 1) {
                 showResult();
             }
@@ -54,20 +92,22 @@ function nextScreen() {
 
 // Handle answer selection
 function selectAnswer(questionNum, destination, element) {
-    // Remove selection from all options in this question
+    const previousDestination = answers[questionNum];
+
+    if (previousDestination) {
+        scores[previousDestination] = Math.max(0, scores[previousDestination] - 1);
+    }
+
+    answers[questionNum] = destination;
+
     const allOptions = element.parentElement.querySelectorAll('.option');
     allOptions.forEach(opt => opt.classList.remove('selected'));
-    
-    // Select clicked option
+
     element.classList.add('selected');
-    
-    // Add point to the selected destination
     scores[destination]++;
-    
-    // Enable next button
+
     document.getElementById(`btn${questionNum}`).disabled = false;
 
-    // Add a subtle haptic feedback on mobile (if supported)
     if (navigator.vibrate) {
         navigator.vibrate(10);
     }
@@ -75,27 +115,56 @@ function selectAnswer(questionNum, destination, element) {
 
 // Calculate and show the winning destination
 function showResult() {
-    // Find destination with highest score
     let maxScore = 0;
-    let winningDestination = 'nice'; // default fallback
-    
-    for (let dest in scores) {
+    let winningDestination = 'nice';
+
+    for (const dest in scores) {
         if (scores[dest] > maxScore) {
             maxScore = scores[dest];
             winningDestination = dest;
         }
     }
-    
-    // Update the result screen
+
     const resultElement = document.getElementById('destinationResult');
     const iconElement = document.getElementById('destinationIcon');
-    
+    const descriptionElement = document.getElementById('destinationDescription');
+
     resultElement.textContent = destinations[winningDestination].name;
     iconElement.textContent = destinations[winningDestination].icon;
-    
-    // Log for debugging
+    descriptionElement.textContent = destinations[winningDestination].description;
+
     console.log('Punteggi:', scores);
     console.log('Destinazione vincente:', destinations[winningDestination].name);
+}
+
+function restartQuiz() {
+    currentScreen = 0;
+    resetScores();
+
+    Object.keys(answers).forEach(key => {
+        delete answers[key];
+    });
+
+    document.querySelectorAll('.screen').forEach((screen, index) => {
+        screen.classList.remove('active', 'exiting');
+        if (index === 0) {
+            screen.classList.add('active');
+        }
+    });
+
+    document.querySelectorAll('.option').forEach(option => {
+        option.classList.remove('selected');
+    });
+
+    for (let i = 1; i <= 6; i++) {
+        const button = document.getElementById(`btn${i}`);
+        if (button) {
+            button.disabled = true;
+        }
+    }
+
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Swipe gesture handlers
@@ -109,13 +178,15 @@ function handleTouchEnd(e) {
 }
 
 function handleSwipe() {
+    if (currentScreen >= totalScreens - 1) {
+        return;
+    }
+
     const swipeThreshold = 50;
     const diff = touchStartX - touchEndX;
 
-    // Swipe left to go forward (only on screens without required answers)
     if (diff > swipeThreshold) {
         const currentBtn = document.getElementById(`btn${currentScreen}`);
-        // Allow swipe only if no button exists (welcome/final screen) or button is enabled
         if (!currentBtn || !currentBtn.disabled) {
             nextScreen();
         }
