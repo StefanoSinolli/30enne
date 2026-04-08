@@ -1,0 +1,261 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Progress bar */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+}
+
+/* Screen styling */
+.screen {
+    background: white;
+    border-radius: 20px;
+    padding: 60px 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    display: none;
+}
+
+.screen.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.screen.exiting {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+/* Typography */
+h1 {
+    font-size: 2.5em;
+    color: #2d3748;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #2d3748;
+    margin-bottom: 30px;
+    line-height: 1.3;
+}
+
+p {
+    font-size: 1.1em;
+    color: #718096;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* Buttons */
+.btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    font-size: 1.1em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Answer options */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.option {
+    background: #f7fafc;
+    border: 2px solid #e2e8f0;
+    padding: 20px 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1em;
+    color: #2d3748;
+    text-align: left;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.option i {
+    font-size: 1.3em;
+    transition: transform 0.3s ease;
+}
+
+.option:hover i {
+    transform: scale(1.1);
+}
+
+.option:hover {
+    border-color: #667eea;
+    background: #edf2f7;
+    transform: translateX(5px);
+}
+
+.option:active {
+ 
+
+.option.selected i {
+    color: white !important;
+    transform: scale(1.15);
+}   transform: scale(0.98);
+    background: #e2e8f0;
+}
+
+.option.selected {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+    color: white;
+    transform: translateX(5px);
+}
+
+.option.selected:active {
+    transform: scale(0.98) translateX(5px);
+}
+
+/* Emoji decorations */
+.emoji {
+    font-size: 4em;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Icon decorations */
+.icon-large {
+    font-size: 5em;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+}
+
+.icon-large i {
+    filter: drop-shadow(0 4px 8px rgba(240, 147, 251, 0.3));
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Question number */
+.question-number {
+    color: #a0aec0;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* Final screen styling */
+.final-message {
+    text-align: center;
+}
+
+.heart-animation {
+    font-size: 6em;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.heart-animation i {
+    filter: drop-shadow(0 4px 12px rgba(240, 147, 251, 0.4));
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    10%, 30% { transform: scale(1.1); }
+    20%, 40% { transform: scale(0.95); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    body {
+        padding: 20px 15px;
+    }
+
+    .screen {
+        padding: 40px 25px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .emoji {
+        font-size: 3em;
+    }
+
+    .option {
+        padding: 18px 20px;
+        font-size: 1em;
+    }
+
+    .btn {
+        padding: 14px 35px;
+        font-size: 1em;
+        width: 100%;
+    }
+}

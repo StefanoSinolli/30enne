@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz per Te ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="container">
+        <!-- Screen 1: Welcome -->
+        <div class="screen active" id="screen0">
+            <div style="text-align: center;">
+                <div class="icon-large">
+                    <i class="fas fa-gift" style="color: #f093fb;"></i>
+                </div>
+                <h1>Buon Compleanno Amore! 🎉</h1>
+                <p>Il 18 aprile è il TUO giorno speciale... e ho pensato a una sorpresa per te!</p>
+                <p style="font-size: 0.95em; color: #718096;">Rispondi a questo quiz per scoprire la destinazione perfetta per la nostra giornata insieme ❤️</p>
+                <button class="btn" onclick="nextScreen()">
+                    <i class="fas fa-plane-departure" style="margin-right: 8px;"></i>Scopriamo dove andremo!
+                </button>
+            </div>
+        </div>
+
+        <!-- Screen 2: Question 1 -->
+        <div class="screen" id="screen1">
+            <div class="question-number"><i class="fas fa-circle-notch" style="margin-right: 8px;"></i>Domanda 1 di 6</div>
+            <h2>La giornata perfetta per te è:</h2>
+            <div class="options">
+                <div class="option" onclick="selectAnswer(1, 'isola', this)">
+                    🏝️ Natura e acqua cristallina
+                </div>
+                <div class="option" onclick="selectAnswer(1, 'menton', this)">
+                    🌸 Casette colorate e relax
+                </div>
+                <div class="option" onclick="selectAnswer(1, 'nice', this)">
+                    🌆 Vicoli vivi, mercato e atmosfera locale
+                </div>
+                <div class="option" onclick="selectAnswer(1, 'antibes', this)">
+                    🌊 Mare + centro vivace
+                </div>
+                <div class="option" onclick="selectAnswer(1, 'eze', this)">
+                    🌅 Borgo romantico con vista mozzafiato
+                </div>
+                <div class="option" onclick="selectAnswer(1, 'cannes', this)">
+                    ✨ Passeggiata elegante sul lungomare
+                </div>
+            </div>
+            <button class="btn" id="btn1" disabled onclick="nextScreen()">
+                Avanti <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+            </button>
+        </div>
+
+        <!-- Screen 3: Question 2 -->
+        <div class="screen" id="screen2">
+            <div class="question-number"><i class="fas fa-circle-notch" style="margin-right: 8px;"></i>Domanda 2 di 6</div>
+            <h2>Cosa ti piacerebbe fare di più?</h2>
+            <div class="options">
+                <div class="option" onclick="selectAnswer(2, 'antibes', this)">
+                    🍹 Girare tra porto e locali
+                </div>
+                <div class="option" onclick="selectAnswer(2, 'nice', this)">
+                    🥐 Girare tra vicoli e mangiare cose tipiche
+                </div>
+                <div class="option" onclick="selectAnswer(2, 'isola', this)">
+                    🌿 Camminare nella natura e fare il bagno
+                </div>
+                <div class="option" onclick="selectAnswer(2, 'eze', this)">
+                    💕 Perderti in un posto romantico
+                </div>
+                <div class="option" onclick="selectAnswer(2, 'menton', this)">
+                    🚶‍♀️ Passeggiata rilassata
+                </div>
+                <div class="option" onclick="selectAnswer(2, 'cannes', this)">
+                    🛍️ Shopping e aperitivo
+                </div>
+            </div>
+            <button class="btn" id="btn2" disabled onclick="nextScreen()">
+                Avanti <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+            </button>
+        </div>
+
+        <!-- Screen 4: Question 3 -->
+        <div class="screen" id="screen3">
+            <div class="question-number"><i class="fas fa-circle-notch" style="margin-right: 8px;"></i>Domanda 3 di 6</div>
+            <h2>Che panorama ti emoziona di più?</h2>
+            <div class="options">
+                <div class="option" onclick="selectAnswer(3, 'menton', this)">
+                    🌈 Case colorate
+                </div>
+                <div class="option" onclick="selectAnswer(3, 'eze', this)">
+                    🔥 Vista dall'alto spettacolare
+                </div>
+                <div class="option" onclick="selectAnswer(3, 'nice', this)">
+                    🌇 Vista città + mare dall'alto
+                </div>
+                <div class="option" onclick="selectAnswer(3, 'antibes', this)">
+                    ⛵ Porto e barche
+                </div>
+                <div class="option" onclick="selectAnswer(3, 'isola', this)">
+                    💎 Mare limpido selvaggio
+                </div>
+                <div class="option" onclick="selectAnswer(3, 'cannes', this)">
+                    🏖️ Lungomare elegante
+                </div>
+            </div>
+            <button class="btn" id="btn3" disabled onclick="nextScreen()">
+                Avanti <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+            </button>
+        </div>
+
+        <!-- Screen 5: Question 4 -->
+        <div class="screen" id="screen4">
+            <div class="question-number"><i class="fas fa-circle-notch" style="margin-right: 8px;"></i>Domanda 4 di 6</div>
+            <h2>Il pranzo ideale è:</h2>
+            <div class="options">
+                <div class="option" onclick="selectAnswer(4, 'antibes', this)">
+                    🍕 Ristorante sul porto
+                </div>
+                <div class="option" onclick="selectAnswer(4, 'nice', this)">
+                    🥐 Street food / bistrot locale
+                </div>
+                <div class="option" onclick="selectAnswer(4, 'cannes', this)">
+                    🥂 Locale chic
+                </div>
+                <div class="option" onclick="selectAnswer(4, 'eze', this)">
+                    🍷 Ristorante romantico con vista
+                </div>
+                <div class="option" onclick="selectAnswer(4, 'isola', this)">
+                    🥪 Picnic vista mare
+                </div>
+                <div class="option" onclick="selectAnswer(4, 'menton', this)">
+                    🍝 Trattoria tranquilla e tipica
+                </div>
+            </div>
+            <button class="btn" id="btn4" disabled onclick="nextScreen()">
+                Avanti <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+            </button>
+        </div>
+
+        <!-- Screen 6: Question 5 -->
+        <div class="screen" id="screen5">
+            <div class="question-number"><i class="fas fa-circle-notch" style="margin-right: 8px;"></i>Domanda 5 di 6</div>
+            <h2>Il tuo livello di energia oggi è:</h2>
+            <div class="options">
+                <div class="option" onclick="selectAnswer(5, 'eze', this)">
+                    💫 Voglia di qualcosa di speciale
+                </div>
+                <div class="option" onclick="selectAnswer(5, 'nice', this)">
+                    ⚖️ Mix tra relax e scoperta
+                </div>
+                <div class="option" onclick="selectAnswer(5, 'cannes', this)">
+                    💃 Energia e vita
+                </div>
+                <div class="option" onclick="selectAnswer(5, 'antibes', this)">
+                    😎 Tranquillo ma con movimento
+                </div>
+                <div class="option" onclick="selectAnswer(5, 'isola', this)">
+                    🌿 Staccare da tutto
+                </div>
+                <div class="option" onclick="selectAnswer(5, 'menton', this)">
+                    😌 Relax totale
+                </div>
+            </div>
+            <button class="btn" id="btn5" disabled onclick="nextScreen()">
+                Avanti <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+            </button>
+        </div>
+
+        <!-- Screen 7: Question 6 -->
+        <div class="screen" id="screen6">
+            <div class="question-number"><i class="fas fa-circle-notch" style="margin-right: 8px;"></i>Domanda 6 di 6</div>
+            <h2>La serata perfetta è:</h2>
+            <div class="options">
+                <div class="option" onclick="selectAnswer(6, 'isola', this)">
+                    🌌 Silenzio totale
+                </div>
+                <div class="option" onclick="selectAnswer(6, 'nice', this)">
+                    🌃 Passeggiata tra vicoli e locali
+                </div>
+                <div class="option" onclick="selectAnswer(6, 'antibes', this)">
+                    🎉 Cena vivace
+                </div>
+                <div class="option" onclick="selectAnswer(6, 'menton', this)">
+                    🌙 Cena tranquilla
+                </div>
+                <div class="option" onclick="selectAnswer(6, 'eze', this)">
+                    🌅 Tramonto indimenticabile
+                </div>
+                <div class="option" onclick="selectAnswer(6, 'cannes', this)">
+                    🍸 Aperitivo glamour
+                </div>
+            </div>
+            <button class="btn" id="btn6" disabled onclick="nextScreen()">
+                Scopri la destinazione! <i class="fas fa-map-marked-alt" style="margin-left: 8px;"></i>
+            </button>
+        </div>
+
+        <!-- Screen 8: Final Result -->
+        <div class="screen" id="screen7">
+            <div class="final-message">
+                <div class="icon-large">
+                    <i class="fas fa-map-marker-alt" style="color: #f093fb;"></i>
+                </div>
+                <h1 style="font-size: 1.8em; margin-bottom: 15px;">Ok Amore, allora domani</h1>
+                <h1 style="font-size: 1.5em; color: #a0aec0; margin-bottom: 25px;">la nostra destinazione perfetta è:</h1>
+                <h1 id="destinationResult" style="font-size: 3em; color: #667eea; margin: 30px 0;"></h1>
+                <p id="destinationIcon" style="font-size: 5em; margin: 20px 0;"></p>
+                <p style="font-size: 1em; color: #718096; margin-top: 40px;">
+                    <i class="fas fa-heart" style="color: #f093fb; margin-right: 8px;"></i>
+                    Buon compleanno amore mio! ❤️
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
