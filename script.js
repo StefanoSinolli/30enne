@@ -36,7 +36,7 @@ const destinations = {
     eze: {
         name: "Èze",
         image: "imgs/eze.jpg",
-        description: "Un borgo romantico con vista mozzafiato e tramonto speciale 🌅"
+        description: "Un borgo romantico con vista stupenda sul mare 🌅"
     },
     cannes: {
         name: "Cannes",
