@@ -1,6 +1,6 @@
 // State management
 let currentScreen = 0;
-const totalScreens = 8; // Welcome + 6 questions + result
+const totalScreens = 7; // Welcome + 5 questions + result
 const scores = {
     isola: 0,
     menton: 0,
@@ -15,33 +15,33 @@ const answers = {};
 const destinations = {
     isola: {
         name: "Île Sainte-Marguerite",
-        icon: "🏝️",
-        description: "Una giornata tra mare cristallino, natura e relax totale, solo noi due."
+        image: "imgs/isola.jpg",
+        description: "Una giornata tra mare cristallino, natura e relax totale 🏝️"
     },
     menton: {
         name: "Menton",
-        icon: "🌸",
-        description: "Colori, tranquillità e una passeggiata dolce e romantica mano nella mano."
+        image: "imgs/menton.jpg",
+        description: "Colori, tranquillità e una passeggiata dolce mano nella mano 🌸"
     },
     nice: {
         name: "Nice",
-        icon: "🌆",
-        description: "Vicoli vivi, scorci bellissimi e atmosfera locale da scoprire insieme."
+        image: "imgs/nice.jpg",
+        description: "Vicoli vivi, scorci bellissimi e atmosfera locale da scoprire 🌆"
     },
     antibes: {
         name: "Antibes",
-        icon: "🌊",
-        description: "Porto, mare e un mix perfetto di eleganza e leggerezza."
+        image: "imgs/antibes.jpg",
+        description: "Porto, mare e un mix perfetto di eleganza e leggerezza 🌊"
     },
     eze: {
         name: "Èze",
-        icon: "🌅",
-        description: "Un borgo romantico con una vista da togliere il fiato e un tramonto speciale."
+        image: "imgs/eze.jpg",
+        description: "Un borgo romantico con vista mozzafiato e tramonto speciale 🌅"
     },
     cannes: {
         name: "Cannes",
-        icon: "✨",
-        description: "Un tocco glamour, aperitivo vista mare e una giornata super chic."
+        image: "imgs/cannes.jpg",
+        description: "Un tocco glamour, aperitivo vista mare e giornata super chic ✨"
     }
 };
 
@@ -99,8 +99,10 @@ function nextScreen() {
 function selectAnswer(questionNum, destination, element) {
     const previousDestination = answers[questionNum];
 
+    const pointsFor = (dest) => dest === 'eze' ? 2 : 1;
+
     if (previousDestination) {
-        scores[previousDestination] = Math.max(0, scores[previousDestination] - 1);
+        scores[previousDestination] = Math.max(0, scores[previousDestination] - pointsFor(previousDestination));
     }
 
     answers[questionNum] = destination;
@@ -109,7 +111,7 @@ function selectAnswer(questionNum, destination, element) {
     allOptions.forEach(opt => opt.classList.remove('selected'));
 
     element.classList.add('selected');
-    scores[destination]++;
+    scores[destination] += pointsFor(destination);
 
     document.getElementById(`btn${questionNum}`).disabled = false;
 
@@ -131,11 +133,12 @@ function showResult() {
     }
 
     const resultElement = document.getElementById('destinationResult');
-    const iconElement = document.getElementById('destinationIcon');
+    const imageElement = document.getElementById('destinationImage');
     const descriptionElement = document.getElementById('destinationDescription');
 
     resultElement.textContent = destinations[winningDestination].name;
-    iconElement.textContent = destinations[winningDestination].icon;
+    imageElement.src = destinations[winningDestination].image;
+    imageElement.style.display = 'block';
     descriptionElement.textContent = destinations[winningDestination].description;
 
     console.log('Punteggi:', scores);
